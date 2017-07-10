@@ -73,7 +73,7 @@ public class GameWindow extends JFrame{
                 backBufferGraphics2D.setColor(Color.BLACK);
                 backBufferGraphics2D.fillRect(0,0,this.getWidth(),this.getHeight());
                 int high = backgroud.getHeight();
-                backBufferGraphics2D.drawImage(backgroud, 0, 800 - this.getHeight()  , null);
+                backBufferGraphics2D.drawImage(backgroud, 0, this.getHeight() - high  , null);
                 backBufferGraphics2D.drawImage(player, playerX, this.getHeight() - player.getHeight() , null);
                 Graphics2D g2d = (Graphics2D)this.getGraphics();
                 g2d.drawImage(backBufferImage, 0, 0 , null);
