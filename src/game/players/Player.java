@@ -18,6 +18,5 @@ public class Player {
     }
     public void  render(Graphics2D g2d){
         g2d.drawImage(image, x, y, null);
-
     }
 }
