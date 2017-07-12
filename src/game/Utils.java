@@ -11,7 +11,7 @@ import static tklibs.SpriteUtils.loadImage;
  * Created by cuonghx2709 on 7/11/2017.
  */
 public class Utils {
-    public static BufferedImage LoadImage(String url){
+    public static BufferedImage Loadimage(String url){
         try {
             return ImageIO.read(new File(url));
         } catch (IOException e) {
@@ -20,6 +20,6 @@ public class Utils {
         }
     }
     public static BufferedImage LoadAssetImage(String url){
-        return loadImage("assets/images"+url);
+        return Utils.Loadimage("assets/images/"+url);
     }
 }
