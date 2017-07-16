@@ -1,9 +1,8 @@
 package game;
 
-import com.sun.xml.internal.bind.v2.runtime.reflect.Lister;
+import game.bases.Contraints;
 import game.players.Player;
 import game.players.PlayerSpell;
-import javafx.print.PageLayout;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -39,9 +38,9 @@ public class GameWindow extends JFrame {
     public GameWindow() {
         setupWindow();
         loadImages();
-
-        player.x = background.getWidth() / 2;
-        player.y = this.getHeight() - player.image.getHeight();
+        Contraints contraints = new Contraints(50, this.getHeight(), 0, this.getWidth());
+        player.setContraints(contraints);
+        player.position.set(background.getWidth() / 2,this.getHeight() - 50);
 
         backgroundY = this.getHeight() - background.getHeight();
 
@@ -111,11 +110,8 @@ public class GameWindow extends JFrame {
         while (true) {
             try {
                 Thread.sleep(17);
-
                 run();
-
                 render();
-
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -146,20 +142,13 @@ public class GameWindow extends JFrame {
         }
 
         if (xPress){
-            PlayerSpell playerSpell = new PlayerSpell();
-            playerSpell.x = player.x;
-            playerSpell.y = player.y;
-            try {
-                playerSpell.image = ImageIO.read(new File("assets/images/player-spells/a/0.png"));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            playerSpells.add(playerSpell);
+            player.castSpell(playerSpells);
         }
         for (PlayerSpell playerSpell : playerSpells) {
             playerSpell.move();
         }
         player.move(dx, dy);
+        player.cooldown();
     }
 
     private void render() {
@@ -182,7 +171,6 @@ public class GameWindow extends JFrame {
     private void loadImages() {
         try {
             background = ImageIO.read(new File("assets/images/background/0.png"));
-            player.image = ImageIO.read(new File("assets/images/players/straight/0.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
